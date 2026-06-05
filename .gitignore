@@ -1,0 +1,20 @@
+# Environments
+venv/
+.env
+
+# Cache and temporary files
+__pycache__/
+*.pyc
+.gradio/
+runtime/
+temp_code.py
+
+# Large data and models
+checkpoints/
+results/
+flagged/
+*.pt
+*.zip
+inception-2015-12-05.pt
+notebooks.zip
+results.zip
