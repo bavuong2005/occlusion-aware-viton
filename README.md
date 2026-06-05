@@ -77,6 +77,7 @@ pip install -r requirements.txt
 
 ## 🚀 Usage
 
+### Option A: Local Execution
 **1. Run the Try-On Pipeline:**
 ```bash
 python pipeline.py
@@ -88,6 +89,15 @@ python pipeline.py
 python academic_eval.py
 ```
 *Calculates PSNR, LPIPS, FID, and KID against the baseline.*
+
+### Option B: Cloud Deployment (Serverless GPU via Modal)
+This project is engineered to deploy seamlessly on cloud GPUs using [Modal](https://modal.com/), making it independent of local hardware constraints.
+
+**Serve the Live Web App (Gradio Interface):**
+```bash
+python -m modal serve modal_app.py
+```
+*This command dynamically provisions a cloud GPU, builds the Docker image with all heavy dependencies, and hosts a live public web interface in seconds.*
 
 ---
 
