@@ -11,7 +11,6 @@ temp_code.py
 
 # Large data and models
 checkpoints/
-results/
 flagged/
 *.pt
 *.zip
