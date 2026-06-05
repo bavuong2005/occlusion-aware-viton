@@ -15,7 +15,7 @@ Standard Virtual Try-On models (like the original StableVITON) struggle when the
 - **Standalone 7-Stage Pipeline**: Fully automated end-to-end inference without human intervention.
 - **Dynamic VRAM Management**: Utilizes a custom `gpu_stage` context manager to load/unload 5 heavy vision models (DINO, SAM, SegFormer, DensePose, StableVITON) sequentially, preventing Out-Of-Memory (OOM) errors on limited GPU resources.
 - **Multi-Category Support**: Dynamically detects and processes Upper-body (shirts), Lower-body (pants), and Dresses.
-- **V10 Occlusion Patching & Alpha Blending**: Forces the diffusion model to hallucinate clothing *underneath* objects, then perfectly overlays the original objects using Gaussian-blurred Alpha masks to prevent jagged edges.
+- **Semantic Occlusion Masking & Alpha Blending**: Forces the diffusion model to hallucinate clothing *underneath* objects, then perfectly overlays the original objects using Gaussian-blurred Alpha masks to prevent jagged edges.
 
 ---
 
@@ -30,7 +30,7 @@ Standard Virtual Try-On models (like the original StableVITON) struggle when the
 
 ### Phase 2: Online Inference (Try-On & Blending)
 - **Stage 5 - Cloth Parsing**: Uses SegFormer to clean the target flat-lay clothing image, applying `morphologyEx` to remove noise and fill holes.
-- **Stage 6 - Diffusion Generation (StableVITON)**: Feeds the data into the baseline model. Uses **V10 Patching** (merging the `object_mask` into the `agnostic_mask`) to trick the AI into drawing the clothing completely behind the occluded object.
+- **Stage 6 - Diffusion Generation (StableVITON)**: Feeds the data into the baseline model. Uses **Semantic Occlusion Masking** (merging the `object_mask` into the `agnostic_mask`) to trick the AI into drawing the clothing completely behind the occluded object.
 - **Stage 7 - Post-Processing & Alpha Blending**: 
   - Erasing boundary noise using `cv2.erode()`.
   - Feathering the mask with `cv2.GaussianBlur()` to create an `alpha` gradient `[0.0 - 1.0]`.
